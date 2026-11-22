@@ -11,15 +11,30 @@
 	<a asp-page="./Create" class="btn btn-primary">Novo contato</a>
 </p>
 
-<form method="get" class="row g-2 mb-3">
-	<div class="col-md-6">
+<form method="get" class="row g-3 align-items-end mb-4">
+	<div class="col-12 col-lg-5">
 		<label asp-for="SearchTerm" class="form-label">Buscar contato</label>
 		<input asp-for="SearchTerm" class="form-control"
 			   placeholder="Nome, e-mail ou contato" />
 	</div>
-	<div class="col-auto d-flex align-items-end">
-		<button type="submit" class="btn btn-primary">Filtrar</button>
-		<a asp-page="./Index" class="btn btn-secondary ms-2">Limpar</a>
+	<div class="col-6 col-lg-3">
+		<label asp-for="OrderBy" class="form-label">Ordenar por</label>
+		<select asp-for="OrderBy" class="form-select">
+			<option value="name">Nome</option>
+			<option value="email">E-mail</option>
+			<option value="contactnumber">Contato</option>
+		</select>
+	</div>
+	<div class="col-6 col-lg-2">
+		<label asp-for="Direction" class="form-label">Ordem</label>
+		<select asp-for="Direction" class="form-select">
+			<option value="asc">Crescente</option>
+			<option value="desc">Decrescente</option>
+		</select>
+	</div>
+	<div class="col-12 col-lg-2 d-flex gap-2">
+		<button type="submit" class="btn btn-primary flex-fill">Filtrar</button>
+		<a asp-page="./Index" class="btn btn-secondary flex-fill">Limpar</a>
 	</div>
 </form>
 
@@ -29,29 +44,31 @@
 }
 else
 {
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Nome</th>
-				<th>E-mail</th>
-				<th>Contato</th>
-				<th>Ações</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var contact in Model.Contacts)
-			{
+	<div class="table-responsive">
+	<table class="table align-middle">
+			<thead>
 				<tr>
-					<td>@contact.Name</td>
-					<td>@contact.Email</td>
-					<td>@contact.ContactNumber</td>
-					<td>
-						<a asp-page="./Edit" asp-route-id="@contact.Id" class="btn btn-primary">Editar</a>
-						<a asp-page="./Details" asp-route-id="@contact.Id" class="btn btn-secondary">Ver detalhes</a>
-						<a asp-page="./Delete" asp-route-id="@contact.Id" class="btn btn-danger">Excluir</a>
-					</td>
+					<th>Nome</th>
+					<th>E-mail</th>
+					<th>Contato</th>
+					<th>Ações</th>
 				</tr>
-			}
-		</tbody>
+			</thead>
+			<tbody>
+				@foreach (var contact in Model.Contacts)
+				{
+					<tr>
+						<td>@contact.Name</td>
+						<td>@contact.Email</td>
+						<td>@contact.ContactNumber</td>
+						<td>
+							<a asp-page="./Edit" asp-route-id="@contact.Id" class="btn btn-primary">Editar</a>
+							<a asp-page="./Details" asp-route-id="@contact.Id" class="btn btn-secondary">Ver detalhes</a>
+							<a asp-page="./Delete" asp-route-id="@contact.Id" class="btn btn-danger">Excluir</a>
+						</td>
+					</tr>
+				}
+			</tbody>
 	</table>
+	</div>
 }

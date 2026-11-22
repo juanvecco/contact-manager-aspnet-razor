@@ -20,16 +20,43 @@ namespace ContactManager.Pages.Contacts
         [BindProperty(SupportsGet = true)]
         public string? SearchTerm { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string OrderBy { get; set; } = "name";
+
+        [BindProperty(SupportsGet = true)]
+        public string Direction { get; set; } = "asc";
+
         public async Task OnGetAsync()
         {
             IQueryable<Contact> query = _context.Contacts.AsNoTracking();
+
             if (!string.IsNullOrWhiteSpace(SearchTerm))
             {
                 var termo = SearchTerm.Trim();
 
-                query = query.Where(contact => contact.Name.Contains(SearchTerm) || contact.ContactNumber.Contains(SearchTerm) || contact.Email.Contains(SearchTerm));
+                query = query.Where(contact => contact.Name.Contains(termo) || contact.ContactNumber.Contains(termo) || contact.Email.Contains(termo));
             }
-            Contacts = await query.OrderBy(contact => contact.Name).ToListAsync();
+
+            if (OrderBy == "email")
+            {
+                query = Direction == "desc"
+                    ? query.OrderByDescending(contact => contact.Email)
+                    : query.OrderBy(contact => contact.Email);
+            }
+            else if (OrderBy == "contactnumber")
+            {
+                query = Direction == "desc"
+                    ? query.OrderByDescending(contact => contact.ContactNumber)
+                    : query.OrderBy(contact => contact.ContactNumber);
+            }
+            else
+            {
+                query = Direction == "desc"
+                    ? query.OrderByDescending(contact => contact.Name)
+                    : query.OrderBy(contact => contact.Name);
+            }
+
+            Contacts = await query.ToListAsync();
         }
     }
 }
