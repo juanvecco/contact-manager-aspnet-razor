@@ -1,0 +1,23 @@
+@page
+@model ContactManager.Pages.Contacts.DetailsModel
+
+@{
+    ViewData["Title"] = "Detalhes do contato";
+}
+
+<h1>Detalhes do contato</h1>
+
+<dl class="row">
+    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Contact.Name)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.Contact.Name)</dd>
+
+    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Contact.Email)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.Contact.Email)</dd>
+
+    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Contact.ContactNumber)</dt>
+    <dd class="col-sm-10">@Html.DisplayFor(model => model.Contact.ContactNumber)</dd>
+</dl>
+
+<a asp-page="./Edit" asp-route-id="@Model.Contact.Id" class="btn btn-primary">Editar</a>
+<a asp-page="./Delete" asp-route-id="@Model.Contact.Id" class="btn btn-danger ms-2">Excluir</a>
+<a asp-page="./Index" class="btn btn-secondary ms-2">Voltar para a lista</a>
