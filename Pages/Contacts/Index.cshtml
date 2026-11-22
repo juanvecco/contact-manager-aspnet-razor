@@ -1,0 +1,44 @@
+﻿@page
+@model ContactManager.Pages.Contacts.IndexModel
+
+@{
+	ViewData["Title"] = "Contatos";
+}
+
+<h1>Contatos</h1>
+
+<p>
+	<a asp-page="./Create" class="btn btn-primary">Novo contato</a>
+</p>
+
+@if (Model.Contacts.Count == 0)
+{
+	<p>Nenhum contato cadastrado.</p>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>E-mail</th>
+				<th>Contato</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var contact in Model.Contacts)
+			{
+				<tr>
+					<td>@contact.Name</td>
+					<td>@contact.Email</td>
+					<td>@contact.ContactNumber</td>
+					<td>
+						<a asp-page="./Edit" asp-route-id="@contact.Id" class="btn btn-primary">Editar</a>
+						<a asp-page="./Details" asp-route-id="@contact.Id" class="btn btn-secondary">Ver detalhes</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
