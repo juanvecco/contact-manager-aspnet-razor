@@ -11,6 +11,18 @@
 	<a asp-page="./Create" class="btn btn-primary">Novo contato</a>
 </p>
 
+<form method="get" class="row g-2 mb-3">
+	<div class="col-md-6">
+		<label asp-for="SearchTerm" class="form-label">Buscar contato</label>
+		<input asp-for="SearchTerm" class="form-control"
+			   placeholder="Nome, e-mail ou contato" />
+	</div>
+	<div class="col-auto d-flex align-items-end">
+		<button type="submit" class="btn btn-primary">Filtrar</button>
+		<a asp-page="./Index" class="btn btn-secondary ms-2">Limpar</a>
+	</div>
+</form>
+
 @if (Model.Contacts.Count == 0)
 {
 	<p>Nenhum contato cadastrado.</p>
