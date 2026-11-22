@@ -18,4 +18,6 @@
     <dd class="col-sm-10">@Html.DisplayFor(model => model.Contact.ContactNumber)</dd>
 </dl>
 
-<a asp-page="./Index" class="btn btn-secondary">Voltar para a lista</a>
+<a asp-page="./Edit" asp-route-id="@Model.Contact.Id" class="btn btn-primary">Editar</a>
+<a asp-page="./Delete" asp-route-id="@Model.Contact.Id" class="btn btn-danger ms-2">Excluir</a>
+<a asp-page="./Index" class="btn btn-secondary ms-2">Voltar para a lista</a>
